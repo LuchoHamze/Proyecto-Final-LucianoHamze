@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <h2>Productos</h2>
+    
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for producto in productos %}
+            <div class="col">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-body" style="padding: 15px;">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <img src="{% static 'assets/img/descarga.png' %}" class="card-img-top" alt="..." style="max-width: 50%; max-height: 50%;">
+                        <p class="card-text">Precio: ${{ producto.precio }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div>No hay productos disponibles.</div>
+        {% endfor %}
+    </div>
+</body>
+</html>
