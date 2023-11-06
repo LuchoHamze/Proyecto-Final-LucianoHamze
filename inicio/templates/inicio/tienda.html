@@ -44,7 +44,7 @@
       </form>
 
         <div class="row row-cols-1 row-cols-md-6 g-6">
-          {% for producto in productos %}
+          {% for buscado in buscados %}
             <div class="col">
               <div class="card" style="width: 20rem;">
                 <div class="card-body" style= "padding: 15px;">
@@ -58,7 +58,7 @@
               </div>
             </div>
           {% empty %}
-            <div>No hay productos disponibles.</div>
+            <div>No hay productos encontrados.</div>
           {% endfor %}
         </div>
       {% endif %}

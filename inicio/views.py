@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from inicio.models import Paleta, Producto, Categoria, Subcategoria
@@ -78,13 +78,8 @@ def buscar_productos(request):
         
         contexto = { "buscados" : buscador}
         
-        plantilla = loader.get_template("inicio/tienda.html")
-        
-        documento = plantilla.render (contexto)
-        return HttpResponseRedirect(documento)
+        return render(request, "inicio/tienda.html", contexto)
     else:
         contexto = { "mensaje" : "No existe"}
-        
-    plantilla = loader.get_template("inicio/tienda.html")
-    documento = plantilla.render (contexto)
-    return HttpResponseRedirect(documento)    
+    
+    return render(request, "inicio/tienda.html")
