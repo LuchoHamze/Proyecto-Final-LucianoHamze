@@ -35,7 +35,7 @@
                 </div>
             </div>
         </nav>
-        {% if productos %}
+        {% comment %} {% if productos %}
         <h2>Productos</h2>
 
         <form method="GET" action="">
@@ -53,7 +53,7 @@
                   <p class="card-text">Precio: ${{ producto.precio }}</p>
                   {% comment %} <p class="card-text">Stock: {{ producto.stock }}</p>
                   <p class="card-text">Categoría: {{ producto.categoria.nombre }}</p>
-                  <p class="card-text">Subcategoría: {{ producto.subcategoria.nombre }}</p> {% endcomment %}
+                  <p class="card-text">Subcategoría: {{ producto.subcategoria.nombre }}</p>
                 </div>
               </div>
             </div>
@@ -86,4 +86,63 @@
         <!-- Core theme JS-->
         <script src={% static "js/scripts.js" %}></script>
     </body>
-</html>
+</html> {% endcomment %}
+{% if buscados %}
+        <div class="row row-cols-1 row-cols-md-6 g-6">
+        {% for buscado in buscados %}
+        <div class="col">
+          <div class="card" style="width: 20rem;">
+            <div class="card-body" style= "padding: 15px;">
+              <h5 class="card-title">{{ buscado.nombre }}</h5>
+              <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="..." style="max-width: 50%; max-height: 50%;">
+              <p class="card-text">Precio: ${{ buscado.precio }}</p>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+    </div>
+    {% elif not buscados and not productos and not categorias %}
+    <h1>No se encontró el producto solicitado.</p>
+    {% endif %}
+
+        {% if productos %}
+        <h2>Productos</h2>
+
+        <form method="GET" action="{% url "buscar_productos" %}">
+          <input type="text" name="buscar" placeholder="Buscar productos">
+          <input type="submit" value="Buscar">
+      </form>
+
+        <div class="row row-cols-1 row-cols-md-6 g-6">
+          {% for producto in productos %}
+            <div class="col">
+              <div class="card" style="width: 20rem;">
+                <div class="card-body" style= "padding: 15px;">
+                  <h5 class="card-title">{{ producto.nombre }}</h5>
+                  <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="..." style="max-width: 50%; max-height: 50%;">
+                  <p class="card-text">Precio: ${{ producto.precio }}</p>
+                  {% comment %} <p class="card-text">Stock: {{ producto.stock }}</p>
+                  <p class="card-text">Categoría: {{ producto.categoria.nombre }}</p>
+                  <p class="card-text">Subcategoría: {{ producto.subcategoria.nombre }}</p> {% endcomment %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    <div style="display: flex; flex-wrap: wrap;">
+      {% for categoria in categorias %}
+        <form action="{% url 'productos_por_categoria' categoria.id %}" method="get" style="margin-right: 10px;">
+          <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
+          <div class="card" style="width: 20rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{categoria.nombre}}</h5>
+              <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="...">
+              <button type="submit">Ver</button>
+            </div>
+          </div>
+        </form>
+      {% endfor %}
+    </div>
+    </form>
