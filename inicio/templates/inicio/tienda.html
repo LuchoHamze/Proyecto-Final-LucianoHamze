@@ -22,6 +22,23 @@
             </h1>
         </header>
         <!-- Navigation-->
+        <div style="position: fixed; top: 0; right: 0;">
+          {% if not request.user.is_authenticated %} 
+            <a class="btn btn-success" href={% url "login" %}>
+              <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              Iniciar sesion
+            </a>
+            <a class="btn btn-primary" href={% url "register" %}>
+              <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              Registrarse
+            </a>
+          {% else %}
+            <a class="btn btn-danger" href={% url "logout" %}>
+              <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              Cerrar sesion
+            </a>
+          {% endif %}
+      </div>
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
             <div class="container">
                 <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
@@ -117,11 +134,17 @@
         <div class="row row-cols-1 row-cols-md-6 g-6">
           {% for producto in productos %}
             <div class="col">
-              <div class="card" style="width: 20rem;">
-                <div class="card-body" style= "padding: 15px;">
+              <div class="card" style="width: 320px; height: 310px">
+                <div class="card-body" style= "padding: 15px; text-align: center;">
                   <h5 class="card-title">{{ producto.nombre }}</h5>
                   <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="..." style="max-width: 50%; max-height: 50%;">
                   <p class="card-text">Precio: ${{ producto.precio }}</p>
+                  <a class="btn btn-danger" href={% url "eliminar_paleta" producto.id %}>
+                    Eliminar
+                  </a>
+                  <a class="btn btn-success" href="">
+                    Actualizar
+                  </a>
                   {% comment %} <p class="card-text">Stock: {{ producto.stock }}</p>
                   <p class="card-text">Categoría: {{ producto.categoria.nombre }}</p>
                   <p class="card-text">Subcategoría: {{ producto.subcategoria.nombre }}</p> {% endcomment %}
@@ -136,10 +159,10 @@
         <form action="{% url 'productos_por_categoria' categoria.id %}" method="get" style="margin-right: 10px;">
           <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
           <div class="card" style="width: 20rem;">
-            <div class="card-body">
+            <div class="card-body" style= "text-align: center;">
               <h5 class="card-title">{{categoria.nombre}}</h5>
               <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="...">
-              <button type="submit">Ver</button>
+              <button type="submit" class="btn btn-secondary">VER</button>
             </div>
           </div>
         </form>

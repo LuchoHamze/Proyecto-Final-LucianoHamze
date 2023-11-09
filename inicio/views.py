@@ -3,6 +3,8 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from inicio.models import Paleta, Producto, Categoria, Subcategoria
 from .forms import BusquedaForm, ProductoForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def inicio (request):
     return render (request, "inicio/inicio.html", {})
@@ -44,7 +46,8 @@ def tiendaproductos (request):
 #         producto.save()
 
     # return render(request, "inicio/crear_producto.html", {'categorias': categorias})
-    
+
+@login_required    
 def crear_producto(request):
     categorias = Categoria.objects.all()
     subcategorias = Subcategoria.objects.all()
@@ -54,15 +57,19 @@ def crear_producto(request):
         if form.is_valid():
             form.save()
             return redirect ("productos")
-            # Aquí puedes redirigir a la página de éxito o hacer lo que necesites
     else:
         form = ProductoForm()
 
-    return render(request, "inicio/crear_producto.html", {'categorias': categorias, 'subcategorias': subcategorias, 'form': form})    
+    return render(request, "inicio/crear_producto.html", {'categorias': categorias, 'subcategorias': subcategorias, 'form': form})  
+
+def eliminar_producto(request, producto_id):
+    producto_a_eliminar = Producto.objects.get(id=producto_id)
+    producto_a_eliminar.delete()
+    return redirect("tienda")
 
 def lista_productos(request):
     productos = Producto.objects.all()
-    form = BusquedaForm(request.GET)  # Recupera los datos del formulario GET
+    form = BusquedaForm(request.GET) 
 
     if form.is_valid():
         busqueda = form.cleaned_data['busqueda']

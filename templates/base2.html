@@ -22,25 +22,23 @@
             </h1>
         </header>
         <!-- Navigation-->
-        <nav class="navbar bg-body-tertiary" style="position: fixed; top: 0; right: 0;">
-            <div class="container-fluid">
+        <div style="position: fixed; top: 0; right: 0;">
             {% if not request.user.is_authenticated %} 
-              <a class="btn btn-primary" href={% url "login" %}>
+              <a class="btn btn-success" href={% url "login" %}>
                 <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 Iniciar sesion
               </a>
-            </div>
-          </nav>
-          {% else %}
-          <nav class="navbar bg-body-tertiary" style="position: fixed; top: 0; right: 0;">
-            <div class="container-fluid">
-              <a class="btn btn-primary" href={% url "logout" %}>
+              <a class="btn btn-primary" href={% url "register" %}>
+                <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Registrarse
+              </a>
+            {% else %}
+              <a class="btn btn-danger" href={% url "logout" %}>
                 <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 Cerrar sesion
               </a>
-            </div>
-          </nav>
-          {% endif %}
+            {% endif %}
+        </div>
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
             <div class="container">
                 <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
@@ -51,6 +49,7 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="productos">Productos</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "tienda" %}>Tienda</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "crear_producto" %}>Crear Producto</a></li>
+                        {% comment %} <li class="nav-item px-lg-4"><a class="btn btn-secondary" href={% url "register" %}>Registrarse</a></li> {% endcomment %}
                         {% comment %} {% if not request.user.is_authenticated %}
                         <li class="nav-item px-lg-4"><a class="btn btn-primary" href={% url "login" %}>Iniciar Sesion</a></li>
                         {% else %}
