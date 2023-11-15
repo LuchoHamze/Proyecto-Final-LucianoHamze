@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from inicio.models import Paleta, Producto, Categoria, Subcategoria
+from inicio.forms import ActualizarProductoFormulario
 from .forms import BusquedaForm, ProductoForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -67,15 +68,42 @@ def eliminar_producto(request, producto_id):
     producto_a_eliminar.delete()
     return redirect("tienda")
 
+def actualizar_producto(request, producto_id):
+    producto_a_actualizar = Producto.objects.get(id=producto_id)
+    
+    if request.method == "POST":
+        formulario_de_actualizar = ActualizarProductoFormulario(request.POST)
+        if formulario_de_actualizar.is_valid():
+            info_nueva = formulario_de_actualizar.cleaned_data
+            
+            producto_a_actualizar.nombre = info_nueva.get("nombre")
+            producto_a_actualizar.descripcion = info_nueva.get("descripcion")
+            producto_a_actualizar.precio = info_nueva.get("precio")
+            producto_a_actualizar.stock = info_nueva.get("stock")
+            producto_a_actualizar.categoria = info_nueva.get("categoria")
+            producto_a_actualizar.subcategoria = info_nueva.get("subcategoria")
+            
+            producto_a_actualizar.save()
+            return redirect ("tienda")
+        return render (request, "inicio/actualizar_producto.html", {"formulario_de_actualizar" : formulario_de_actualizar})    
+    
+    formulario_de_actualizar = ActualizarProductoFormulario (initial = {"nombre": producto_a_actualizar.nombre, "descripcion": producto_a_actualizar.descripcion, "precio": producto_a_actualizar.precio, "stock" : producto_a_actualizar.stock, "categoria": producto_a_actualizar.categoria, "subcategoria":producto_a_actualizar.subcategoria})
+    return render (request, "inicio/actualizar_producto.html", {"formulario_de_actualizar" : formulario_de_actualizar})
+
 def lista_productos(request):
     productos = Producto.objects.all()
     form = BusquedaForm(request.GET) 
 
     if form.is_valid():
         busqueda = form.cleaned_data['busqueda']
-        productos = productos.filter(nombre__icontains=busqueda)
+        productos = productos.filter(nombre__icontains=busqueda)       
 
     return render(request, 'inicio/tienda.html', {'productos': productos, 'form': form})
+
+def detalle_producto(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    
+    return render(request, "inicio/detalle_producto.html", {"producto": producto})
 
 def buscar_productos(request):
     

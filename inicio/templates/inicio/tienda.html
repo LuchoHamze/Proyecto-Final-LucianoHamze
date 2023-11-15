@@ -142,8 +142,11 @@
                   <a class="btn btn-danger" href={% url "eliminar_paleta" producto.id %}>
                     Eliminar
                   </a>
-                  <a class="btn btn-success" href="">
-                    Actualizar
+                  <a class="btn btn-success" href= {% url "actualizar_producto" producto.id %}>
+                    Editar
+                  </a>
+                  <a class="btn btn-primary" href= {% url "detalle_producto" producto.id %}>
+                    Detalle
                   </a>
                   {% comment %} <p class="card-text">Stock: {{ producto.stock }}</p>
                   <p class="card-text">Categoría: {{ producto.categoria.nombre }}</p>

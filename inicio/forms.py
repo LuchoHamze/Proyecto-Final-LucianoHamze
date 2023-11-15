@@ -8,4 +8,9 @@ class BusquedaForm(forms.Form):
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['nombre', 'precio', "stock", 'categoria', 'subcategoria']    
+        fields = ['nombre', 'precio', "stock", 'categoria', 'subcategoria']   
+        
+class ActualizarProductoFormulario (forms.ModelForm):  
+     class Meta:
+        model = Producto
+        fields = ['nombre', 'precio', "stock", 'categoria', 'subcategoria']       
