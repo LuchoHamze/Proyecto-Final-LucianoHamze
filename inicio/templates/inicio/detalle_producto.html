@@ -48,7 +48,7 @@
               </a>
             {% endif %}
         </div>
-        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav" style="background-color: #33333380">
             <div class="container">
                 <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -62,19 +62,18 @@
             </div>
         </nav>
         </div>
-            <div class="row row-cols-1 row-cols-md-6 g-6">
-                {% for producto in productos %}
-                  <div class="col">
-                    <div class="card" style="width: 320px; height: 310px">
-                      <div class="card-body" style= "padding: 15px; text-align: center;">
-                        <h5 class="card-title">{{ producto.nombre }}</h5>
-                        <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="..." style="max-width: 50%; max-height: 50%;">
-                        <p class="card-text">Precio: ${{ producto.precio }}</p>
-                    </div>
-                </div>
+      </div>
+      <div class="row row-cols-1 row-cols-md-6 g-6">
+            <div class="col">
+              <div class="card" style="width: 520px; height: 510px">
+                <div class="card-body" style= "padding: 15px; text-align: center;">
+                  <h5 class="card-title">{{ producto.nombre }}</h5>
+                  <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="..." style="max-width: 50%; max-height: 50%;">
+                  <p class="card-text">Precio: ${{ producto.precio }}</p>
               </div>
-            {% endfor %}
           </div>
+        </div>
+    </div>
         </section>
         <footer class="footer text-faded text-center py-5">
             <div class="container"><p class="m-0 small">Copyright &copy; MDH Bahia SRL 2023</p></div>

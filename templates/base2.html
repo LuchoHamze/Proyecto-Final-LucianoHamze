@@ -34,7 +34,9 @@
               </a>
             {% else %}
             <a class="btn btn-dark" href={% url "editar_perfil" %}>
-                <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                {% if request.user.datosextra.avatar %}
+                    <img src={{request.user.datosextra.avatar.url}} alt="avatar" width="30" height="24">
+                {% endif %}    
                 {{request.user.username}}
               </a>
               <a class="btn btn-danger" href={% url "logout" %}>
@@ -43,7 +45,7 @@
               </a>
             {% endif %}
         </div>
-        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-3" id="mainNav" style="background-color: #33333380">
             <div class="container">
                 <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
