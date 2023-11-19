@@ -32,47 +32,56 @@
         </header>
         <!-- Navigation-->
         <div style="position: fixed; top: 0; right: 0;">
-            {% if not request.user.is_authenticated %} 
-              <a class="btn btn-success" href={% url "login" %}>
-                <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                Iniciar sesion
-              </a>
-              <a class="btn btn-primary" href={% url "register" %}>
-                <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                Registrarse
-              </a>
-            {% else %}
-              <a class="btn btn-danger" href={% url "logout" %}>
-                <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                Cerrar sesion
-              </a>
-            {% endif %}
-        </div>
-        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav" style="background-color: #33333380">
-            <div class="container">
-                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "inicio" %}>Inicio</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "productos"%}>Productos</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "tienda" %}>Tienda</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        </div>
+          {% if not request.user.is_authenticated %} 
+            <a class="btn btn-success" href={% url "login" %}>
+              <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              Iniciar sesion
+            </a>
+            <a class="btn btn-primary" href={% url "register" %}>
+              <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              Registrarse
+            </a>
+          {% else %}
+          <a class="btn btn-dark" href={% url "perfil" %}>
+              {% if request.user.datosextra.avatar %}
+                  <img src={{request.user.datosextra.avatar.url}} alt="avatar" width="30" height="24">
+              {% endif %}    
+              {{request.user.username}}
+            </a>
+            <a class="btn btn-danger" href={% url "logout" %}>
+              <img src={% static "assets/img/63699.png" %} alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              Cerrar sesion
+            </a>
+          {% endif %}
       </div>
-      <div class="row row-cols-1 row-cols-md-6 g-6">
-            <div class="col">
-              <div class="card" style="width: 520px; height: 510px">
-                <div class="card-body" style= "padding: 15px; text-align: center;">
-                  <h5 class="card-title">{{ producto.nombre }}</h5>
-                  <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="..." style="max-width: 50%; max-height: 50%;">
-                  <p class="card-text">Precio: ${{ producto.precio }}</p>
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-3" id="mainNav" style="background-color: #33333380">
+          <div class="container">
+              <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mx-auto">
+                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "inicio" %}>Inicio</a></li>
+                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "productos"%}>Productos</a></li>
+                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "tienda" %}>Tienda</a></li>
+                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "about" %}>Sobre Nosotros</a></li>
+                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "crear_producto" %}>Crear Producto</a></li>
+                  </ul>
               </div>
           </div>
+      </nav>
         </div>
+      </div>
+    <div class="card" style="width: 28rem;">
+      <img src={% static "assets/img/descarga.png" %} class="card-img-top" alt="..." style="max-width: 70%; max-height: 50%;">
+      <div class="card-body">
+        <h5 class="card-title">{{ producto.nombre }}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Precio: ${{ producto.precio }}</li>
+        <li class="list-group-item">Categoria: {{ producto.categoria }}</li>
+        <li class="list-group-item">SubCategoria: {{ producto.subcategoria }}</li>
+        <li class="list-group-item">Stock disponible: {{ producto.stock }}</li>
+      </ul>
     </div>
         </section>
         <footer class="footer text-faded text-center py-5">

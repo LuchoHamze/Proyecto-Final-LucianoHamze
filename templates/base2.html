@@ -33,7 +33,7 @@
                 Registrarse
               </a>
             {% else %}
-            <a class="btn btn-dark" href={% url "editar_perfil" %}>
+            <a class="btn btn-dark" href={% url "perfil" %}>
                 {% if request.user.datosextra.avatar %}
                     <img src={{request.user.datosextra.avatar.url}} alt="avatar" width="30" height="24">
                 {% endif %}    
@@ -51,17 +51,11 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="">Inicio</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="productos">Productos</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "inicio" %}>Inicio</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "productos"%}>Productos</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "tienda" %}>Tienda</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "about" %}>Sobre Nosotros</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href={% url "crear_producto" %}>Crear Producto</a></li>
-                        {% comment %} <li class="nav-item px-lg-4"><a class="btn btn-secondary" href={% url "register" %}>Registrarse</a></li> {% endcomment %}
-                        {% comment %} {% if not request.user.is_authenticated %}
-                        <li class="nav-item px-lg-4"><a class="btn btn-primary" href={% url "login" %}>Iniciar Sesion</a></li>
-                        {% else %}
-                        <p> {{request.user.username}} <p>
-                        <li class="nav-item px-lg-4"><a class="btn btn-warning" href={% url "logout" %}>Cerrar Sesion</a></li>
-                        {% endif %} {% endcomment %}
                     </ul>
                 </div>
             </div>
@@ -76,21 +70,6 @@
                             <span class="section-heading-lower">BAHIA BLANCA</span>
                         </h2>
                         <p class="mb-3">Somos una distribuidora que cuenta con mas de 15 años de trayectoria en el rubro, nos destacamos por importar las mejores marcas del mercado.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="page-section cta">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-9 mx-auto">
-                        <div class="cta-inner bg-faded text-center rounded">
-                            <h2 class="section-heading mb-4">
-                                <span class="section-heading-upper">SOBRE</span>
-                                <span class="section-heading-lower">NOSOTROS</span>
-                            </h2>
-                            <p class="mb-0">Poseemos un deposito de 650mts2, 3 viajantes que visitan las distintas zonas, y 4 vehiculos para la entrega de mercaderia. Nuestras principales marcas son: Enrique Soriano - MOTA - Pampero - Candela - Brogas - Etisa - Dinatecnica.</p>
-                        </div>
                     </div>
                 </div>
             </div>

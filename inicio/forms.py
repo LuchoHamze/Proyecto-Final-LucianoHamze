@@ -4,7 +4,6 @@ from .models import Producto
 class BusquedaForm(forms.Form):
     busqueda = forms.CharField(label='Buscar')
     
-
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto

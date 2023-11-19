@@ -6,6 +6,7 @@ from inicio.forms import ActualizarProductoFormulario
 from .forms import BusquedaForm, ProductoForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import datetime
 
 def inicio (request):
     return render (request, "inicio/inicio.html", {})
@@ -77,7 +78,6 @@ def actualizar_producto(request, producto_id):
             info_nueva = formulario_de_actualizar.cleaned_data
             
             producto_a_actualizar.nombre = info_nueva.get("nombre")
-            producto_a_actualizar.descripcion = info_nueva.get("descripcion")
             producto_a_actualizar.precio = info_nueva.get("precio")
             producto_a_actualizar.stock = info_nueva.get("stock")
             producto_a_actualizar.categoria = info_nueva.get("categoria")
@@ -87,7 +87,7 @@ def actualizar_producto(request, producto_id):
             return redirect ("tienda")
         return render (request, "inicio/actualizar_producto.html", {"formulario_de_actualizar" : formulario_de_actualizar})    
     
-    formulario_de_actualizar = ActualizarProductoFormulario (initial = {"nombre": producto_a_actualizar.nombre, "descripcion": producto_a_actualizar.descripcion, "precio": producto_a_actualizar.precio, "stock" : producto_a_actualizar.stock, "categoria": producto_a_actualizar.categoria, "subcategoria":producto_a_actualizar.subcategoria})
+    formulario_de_actualizar = ActualizarProductoFormulario (initial = {"nombre": producto_a_actualizar.nombre, "precio": producto_a_actualizar.precio, "stock" : producto_a_actualizar.stock, "categoria": producto_a_actualizar.categoria, "subcategoria":producto_a_actualizar.subcategoria})
     return render (request, "inicio/actualizar_producto.html", {"formulario_de_actualizar" : formulario_de_actualizar})
 
 def lista_productos(request):
@@ -118,3 +118,7 @@ def buscar_productos(request):
         contexto = { "mensaje" : "No existe"}
     
     return render(request, "inicio/tienda.html")
+
+def acerca_de_mi(request):
+    
+    return render(request, "inicio/acerca_de_mi.html")
